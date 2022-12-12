@@ -1,0 +1,27 @@
+Le programm level10 prend deux args, un fichier, j'ai ecrit dans /tmp/
+Et un host, j'ai ouvert le port avec ufw allow 6969 (info reçu de strings level10)
+puis ecoute avec nc -l 6969
+puis j'ai envoyé le fichier.
+Il y a un délimiteur bizarre qui nous ai envoyé avec, il ne sert à rien si ce n'est delimiter !
+
+Le contenu du fichier s'affiche bel et bien.
+On se doute qu'il faille envoyer le fichier token mais avons les droits ? nop
+On peut creer un lien symbolique mais on a toujours pas les droits
+On fouille donc dans les fonctions que le fichier utilise et globalement
+On recherche nom_de_la_fonction + exploit
+BAM access est concluant
+Grosso modo, https://resources.infosecinstitute.com/topic/race-condition-toctou-vulnerability-lab/
+
+TOCTOU - Race condiction vunerability grace a la fonction access
+
+Il y a un temps entre access (check les droits du fichiers) et open (ou on ouvre le fichier) qu'on peut utiliser !
+Ce petit temps qu'il y a entre les deux fonctions, il est a nous d'utiliser pour changer la destination du lien vers un fichier dont on a pas les droits ! (eh oui token!)
+
+Ça ne se joue à rien, un fraction de fraction de seconde mais avec deux petites boucles, eh bien ça se fait aisément.
+
+Il faut donc deux choses pour commencer
+Un terminal et un lien vers un fichier qui nous "appartient" On peut pas créer grand chose, on prend alors le fichier level10 car on a les droits pour le lire et on créee un lien dans /tmp/
+
+On prépare une boucle en background (signe &) qui s'amuse à changer la destination du lien vers token puis vers level10.
+Ensuite on lance la boucle qui va uniquement executer level 10 avec les mêmes parametres tout le temps. Le lien dans /tmp/ et le serveur qui écoute sur le port 6969 grâce à nc
+flag10:woupa2yuojeeaaed06riuj63c

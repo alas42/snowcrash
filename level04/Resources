@@ -1,0 +1,13 @@
+For an earlier level, I checked where the files are that have to do with the current user, well I checked for every futur levels too and bingo for level04 there was one in var/www/ something to do with a server then ?
+Now I see that the file is duplicated in var/www and level04 repertory.
+A perl script that is a cgi, it executes code that we upload via a server. Basic stuff really. Does perl, this script has weaknesses, surely !
+It has
+After reading and understanding what this script does, it is fairly easy
+First we try to call to this script we type ip:4747/level04.pl
+It works, blank page
+The script takes one parameter named x
+So we complete the url ip:4747/level04.pl?x=
+then we try things, first, does it print something when we type hello ?
+Yes, now we try system calls but I see that whenever I have parenthesis it shows nothing ... then I read that backticks are interpreted as system calls so ...
+http://10.0.0.84:4747/level04.pl?x=`getflag` TADA.
+

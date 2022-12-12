@@ -1,0 +1,42 @@
+Une faute d'orthographe ici : provied -> provide
+Clairement, c'est ici qu'entre en jeu le buffer overflow !
+Enfin j'espère et après une rapide lecture des retours des commandes nm et strings, j'en suis presque sûr!
+
+Faire un strings sur l'executable level09 nous indique encore une fois toutes les fonctions que l exe utilise
+puts
+putchar
+fputc
+getenv
+ptrace
+fwrite
+open
+
+Il y a aussi tout ce bloc qui apparait qui est interessant:
+You should not reverse this
+LD_PRELOAD
+Injection Linked lib detected exit..
+/etc/ld.so.preload
+/proc/self/maps
+/proc/self/maps is unaccessible, probably a LD_PRELOAD attempt exit..
+libc
+You need to provied only one arg.
+00000000 00:00 0
+LD_PRELOAD detected through memory maps exit ..
+;*2$"$
+
+Le programme pourrait donc détecter un type d'injection LD_PRELOAD
+
+Faire un gdb ne fonctionne pas, le programme détecte une injection de librairie...
+Donc qu'est-ce qu'il reste à faire ? aucune idée
+Après avoir mis quarante zero comme paramètre dans le vain espoir de déclencher quelque chose... je remarque un certain pattern.
+
+Chaine d'entrée: 00000000000000000000000000000000000000000000000000000000
+Chaine de sortie: 0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+
+Il n'y a plus vraiment de mystère n'est-ce pas ?
+Le programme indique comment le programme est crypté 
+
+D'où les charactères étranges, sont en fait les non displayable
+On remarque que les 0 changent, +1 à CHAQUE position supplémentaire.
+
+On va essayer de faire un petit programme pour essayer de casser ça.

@@ -1,0 +1,2 @@
+reading /etc/passwd -> see that the line corresponding to the flag is showing a result
+scp -> to local machine and launching john the ripper with the file as arg

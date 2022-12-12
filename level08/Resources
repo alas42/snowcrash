@@ -1,0 +1,35 @@
+Well, I have no idea here
+
+What I did:
+	Readelf & strings
+
+What I gathered:
+	It uses strstr (I thought to locate the file but I'm not so sure), maybe it uses its use lies in the comparison of the file name, if it is token then it quits 
+	It uses open, read, write, printf too
+
+Open = open the file, get fd
+Write ?
+Read = get the content of fd
+Printf = print the content of file
+strstr = ?
+
+
+What I tried:
+	Create a simlimk & change perms on link
+	Scp the file
+	Check which group has access to token to try to read it from another flag user
+	
+STOP, I tried something dumb and it is maybe the right direction
+I scp'd the level08 executable bc why not and tried to access a non existing token file
+and it returned : you may not access token
+SOOOO, maybe it is just the name I have to change
+Yes well, I don't know, it goes back to the idea of making a symlink but permission denied
+
+I tried again and again to find some informations about the binary but found nothing. Either way, I'm not good at this. I have now another idea. What if ... it has to take token as a param without knowing it is token.
+I tried this and ... nothing: ./level08 $(ls | sed -n 2p)
+
+Well then I tried to put the link everywhere and it worked ... in a directory where I have no rights to access the contents ... I dont understand why it did not work in /dev/shm/ where I have all rights to create, read and delete files
+but it works on /tmp/ where I see nothing at all !
+so one the first thing I tried worked
+ln -s ~/token /tmp/why && ./level08 /tmp/why
+it returns the password of flag08 user: quif5eloekouj29ke0vouxean

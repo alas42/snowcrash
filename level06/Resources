@@ -1,0 +1,23 @@
+So we have an exploit I already knew about, preg_replace in php
+First the script level06 calls the php file with an arg
+It will read a file, store the content in a var and procede to alter its content before printing it
+the exploit is in the /e because it evaluates the regular expression meaning it will eval() it, meaning we can put some juicy thing in it
+
+[x ] replace the inner part with \2 ? and then replace the [] with parenthesis
+
+Well after tinkering A WHIIIIILLLLLLEEEE to get it done I did it... strangely
+
+I did this [x {${exec(bash)}} ]
+What does it do ?
+It exploits the preg_replace with /e modifier like I wrote earlier
+writing [x assures that the function is launched
+/e will then evaluate the second arg, {${exec(bash)}}
+AFter a thousand of tests I managed to make this command work
+The point was to launch a bash with flag06 permissions to getflag easily
+Well it does launch a bash logged as a flag06 user but ... it doesn't show anything 
+Or does it ?
+When we type exit, we can see that the result of the command is shown !
+I tried a bit and it is always the last command result that is shown. 
+What does it mean ? Well my idea worked, kinda.
+It did evaluate the madeup var and the expression exec(bash) in it
+Now that I understand why and how I could easily change the exec(bash) in getflag only but I like it.

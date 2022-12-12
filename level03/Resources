@@ -1,0 +1,13 @@
+So, we have an executable
+Reading it, it is gibberish but we can see on the top that it is an elf file.
+After much researching and learning what it is, we can begin to work with it
+Using elfread to check what is inside.
+Is it a text that is hidden in data ? nope
+Using gdb to put breakpoints and check if the values are at one time hidden ? nope
+THEN WE SEE (could have been much earlier ...) that there are a few functions, strange ones we can worth with.
+setresuid, setresgid, system...
+Yep that's it. It basically runs what is in system as root, something we cannot do on the bash
+After thinking for a while what we can do, it is pretty easy to say change the path where the program is searching "echo" to another "echo" that is selfmade.
+Well, do we try to get that flag now ? getflag ? 
+AAANNNNNNDDDD it works
+

@@ -1,0 +1,40 @@
+#!/bin/sh
+
+for i in /opt/openarenaserver/* ; do
+	(ulimit -t 5; bash -x "$i")
+	rm -f "$i"
+done
+
+ulimit is a command that allows to modify or see allocated resources on the system process. -t sets the limit to a time in seconds. Here 5.
+-x is a verification if the file exists and is executable
+$i is simply the name of the file contained in the repository that the program reads.
+And then it deletes the file I guess
+
+First things first. Could a directory marked as an executable work ? I mean if it passes the -x verification, it should not be deleted by rm -f
+après moultes essais complètement infructeux, on va tester en faisant un programme en c
+
+EN vrai, je pars du principe que ulimit ne sert à rien si ce n'est qu'on dégomme le système avec des scripts pourris justement
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main () {
+   char command[50];
+
+   strcpy( command, "ls -l" );
+   system(command);
+
+   return(0);
+} 
+Très bien, ce n'est pas cela non plus ! Cannot execute binary file
+Du coup il faut bel et bien mettre des commandes types bash dans un fichiers mais aucune idée desquelles
+
+Après reconnexion, que vois-je ? Vous avez un mail!
+So we check our email, less /var/mail/$(whoami)
+We see a cron line, we add it to cron, we edit the cronjobs with crontab -e
+We check that the cron is added by typing crontab -l
+Then we juste have to write a script that stores the output of getflag in a file that would not be deleted by the same script
+Easy, by taking the idea from earlier which is directories are not deleted, we create a directory and stores the output of getflag in it.
+We wait that the cronjobs does its job and tada, flag.

@@ -1,0 +1,27 @@
+What does the executable do?
+It returns the argv[0] I guess.
+How do we exploit this ? Readelf + strings + nm
+Ok it uses getuid setuid etc and uses a buffer...
+Welp, I know nothing about buffer overflows so I guess it is time to learn about it !
+The idea is to corrupt the data in the buffer that the program will use so that it does not work as intended.
+OR NOT
+asprintf does not permit buffer overflow ... so what is the problem here ?
+there is still a buffer var
+a system function
+Two local files included .c crtstuff.c and level07.c
+Tried accessing it = nothing
+Tried to make a symlink to another program (called differently) = nothing
+Tried to make a c program that executes level07 with another name = nothing
+Tried (exec -a ...) = nothing
+WELL I GUESS IT DOES NOT PRINT ARGV 0 AS I THOUGHT
+
+Let's go back to reading the nm / strings / elf of program
+Finally I found it
+Well I checked what exactly was being printed because welp ... that's what we want to find to change the value to a command. First it uses echo ... and not asprintf
+echo can launch command, no that is not right. Echo can display the result of a command that is its argument. What is its argument ? LOGNAME, an env var, showed when entering env in the shell
+
+I did the same as last exercice.
+Launched a bash with permissions of the program, flag07, typed getflag and exited.
+$(bash) => to store it correctly and that the parenthesis are not manipulated by the shell put the command is the following:
+export LOGNAME=$/(bash/)
+The flag showed after exiting

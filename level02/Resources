@@ -1,0 +1,9 @@
+cp -P 4242 level02@10.0.0.84:/home/user/level02/level02.pcap .
+#it copies the .pcap file to the local machine
+chmod 666 level02.pcap to get the rights to read it with wireshark
+wireshark level02.pcap
+Follows tcp
+see password but with non printable ascii characters
+see what their values is (127 = del)
+Del the characters and try again
+ft_wandr...NDRel.L0L => ft_waNDReL0L
