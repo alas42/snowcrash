@@ -6,7 +6,7 @@ Like in rootme or Tryhackme, the goal of this project is to introduce the studen
 The student has to found a flag on its current level to access to the next one.
 
 Discovery of little tricks to find vunerabilities
-  - Exploiting programs that executes commands in a variety of ways (In C, Perl, Python)
+  - Exploiting programs that are executing commands with a higher set of rights (In C, Perl, Python)
   - Exploiting Cronjobs & CGI's flaws
  
  Discovery of a variety of softwares and tools
