@@ -1,4 +1,4 @@
-# snowcrash
+# SnowCrash
 Introduction to cyber security
 
 This project is similar to a serie of minigame.
