@@ -7,7 +7,7 @@ The student has to found a flag on its current level to access to the next one.
 
 Discovery of little tricks to find vunerabilities
   - Exploiting programs that are executing commands with a higher set of rights (In C, Perl, Python)
-  - Exploiting Cronjobs & CGI's flaws
+  - Exploiting Cronjob's & CGI's flaws
  
  Discovery of a variety of softwares and tools
   - John The Rippper (To crack passwords)
