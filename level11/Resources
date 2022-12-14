@@ -1,5 +1,6 @@
 We find a lua file that asks the user for a password
 After checking for lua exploits, we find one in the function io.popen
+'prog = io.popen("echo "..pass.." | sha1sum", "r")'
 We can inject code through the password prompt in this function to be executed
 First we have to open a connection to the server
 
